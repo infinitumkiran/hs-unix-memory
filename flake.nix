@@ -12,10 +12,15 @@
       perSystem = { self', pkgs, ... }: {
         haskellProjects.default = {
           projectFlakeName = "classyplate";
-          basePackages = pkgs.haskell.packages.ghc96;
+          basePackages = pkgs.haskell.packages.ghc98;
           packages = {
           };
           settings = {
+          };
+          devShell = {
+            tools = hp: {
+              haskell-language-server = null;
+            };
           };
                   };
 

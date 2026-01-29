@@ -1,0 +1,25 @@
+{
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/89c2b2330e733d6cdb5eae7b899326930c2c0648";
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    haskell-flake.url = "github:srid/haskell-flake";
+  };
+  outputs = inputs@{ self, nixpkgs, flake-parts, ... }:
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      systems = nixpkgs.lib.systems.flakeExposed;
+      imports = [ inputs.haskell-flake.flakeModule ];
+
+      perSystem = { self', pkgs, ... }: {
+        haskellProjects.default = {
+          projectFlakeName = "classyplate";
+          basePackages = pkgs.haskell.packages.ghc96;
+          packages = {
+          };
+          settings = {
+          };
+                  };
+
+      packages.default = self'.packages.instance-control;
+      };
+    };
+}

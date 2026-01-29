@@ -30,7 +30,7 @@ withDevZeroMapping f = withOpenFd "/dev/zero" $ \fd ->
             (\mem -> memoryUnmap mem psz)
             f
   where withOpenFd filename g = do 
-            bracket (openFd filename ReadWrite Nothing defaultFileFlags)
+            bracket (openFd filename ReadWrite defaultFileFlags)
                     closeFd
                     g
 
